@@ -1,0 +1,37 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python: comatch",
+            "type": "python",
+            "request": "launch",
+            "program": "Train_CoMatch.py",
+            "console": "integratedTerminal",
+            "args": [
+                "--root=C:/Users/Alex/WorkSpace/pycharm/mymoco/datasets",
+                "--dataset=CIFAR100",
+                "--n-classes=100",
+                "--n-labeled=10000",
+                "--n-epoches=200",
+                "--arch=shakeshake",
+                "--batchsize=32",
+                "--mu=7",
+                "--eval-ema=true",
+                "--ema-m=0.999",
+                "--lam-u=0.0",
+                "--lr=0.03",
+                "--weight-decay=5e-4",
+                "--momentum=0.9",
+                "--temperature=0.2",
+                "--lam-c=1",
+                "--contrast-th=0.8",
+                "--thr=0.95",
+                "--alpha=0.9",
+                "--queue-batch=5",
+            ]
+        }
+    ]
+}
