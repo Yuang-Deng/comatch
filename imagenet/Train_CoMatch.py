@@ -36,6 +36,7 @@ import torch.nn.functional as F
 import loader
 from Model import Model
 from resnet import *
+from sync_batchnorm import convert_model
 
 parser = argparse.ArgumentParser(description='PyTorch ImageNet Training')
 parser.add_argument('data', metavar='DIR', default='', help='path to dataset')
@@ -190,6 +191,7 @@ def main_worker(gpu, ngpus_per_node, args):
         args.batch_size_u = int(args.batch_size_u / ngpus_per_node)
         args.workers = int((args.workers + ngpus_per_node - 1) / ngpus_per_node)
         model = torch.nn.parallel.DistributedDataParallel(model, device_ids=[args.gpu]) #find_unused_parameters=True
+        model = convert_model(model)
     else:
         model.cuda()
         # DistributedDataParallel will divide and allocate batch_size to all

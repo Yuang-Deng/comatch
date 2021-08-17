@@ -23,7 +23,7 @@ from shakeshake26 import cifar_shakeshake26
 from datasets.cifar import get_train_loader, get_val_loader
 from utils import accuracy, setup_default_logging, AverageMeter, WarmupCosineLrScheduler
 
-import tensorboard_logger 
+# import tensorboard_logger 
 
 def set_model(args):
     if args.arch == 'WideResnet':
@@ -293,7 +293,7 @@ def main():
     logger, output_dir = setup_default_logging(args)
     logger.info(dict(args._get_kwargs()))
     
-    tb_logger = tensorboard_logger.Logger(logdir=output_dir, flush_secs=2)
+    # tb_logger = tensorboard_logger.Logger(logdir=output_dir, flush_secs=2)
 
     if args.seed > 0:
         torch.manual_seed(args.seed)
@@ -360,14 +360,14 @@ def main():
 
         top1, ema_top1 = evaluate(model, ema_model, dlval)
     
-        tb_logger.log_value('loss_x', loss_x, epoch)
-        tb_logger.log_value('loss_u', loss_u, epoch)
-        tb_logger.log_value('loss_c', loss_c, epoch)
-        tb_logger.log_value('guess_label_acc', guess_label_acc, epoch)
-        tb_logger.log_value('test_acc', top1, epoch)
-        tb_logger.log_value('test_ema_acc', ema_top1, epoch)
-        tb_logger.log_value('mask', mask_mean, epoch)
-        tb_logger.log_value('num_pos', num_pos, epoch)
+        # tb_logger.log_value('loss_x', loss_x, epoch)
+        # tb_logger.log_value('loss_u', loss_u, epoch)
+        # tb_logger.log_value('loss_c', loss_c, epoch)
+        # tb_logger.log_value('guess_label_acc', guess_label_acc, epoch)
+        # tb_logger.log_value('test_acc', top1, epoch)
+        # tb_logger.log_value('test_ema_acc', ema_top1, epoch)
+        # tb_logger.log_value('mask', mask_mean, epoch)
+        # tb_logger.log_value('num_pos', num_pos, epoch)
         
         if best_acc < top1:
             best_acc = top1

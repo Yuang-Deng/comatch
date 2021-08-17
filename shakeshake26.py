@@ -10,7 +10,7 @@ def cifar_shakeshake26(pretrained=False, **kwargs):
     assert not pretrained
     model = ResNet32x32(ShakeShakeBlock,
                         layers=[4, 4, 4],
-                        channels=96,
+                        channels=16,
                         downsample='shift_conv', **kwargs)
     return model
 
@@ -112,7 +112,7 @@ class ResNet32x32(nn.Module):
         self.avgpool = nn.AvgPool2d(8)
         #print(channels * 4, groups)
         self.classifier = nn.Linear(block.out_channels(
-            channels * 4, groups), num_classes)
+            channels * 4, groups), num_classes, bias=True)
         # self.fc2 = nn.Linear(block.out_channels(
         #     channels * 4, groups), num_classes)
         # self.fc1 = nn.Linear(channels * 4 * 4, num_classes)
@@ -164,11 +164,11 @@ class ResNet32x32(nn.Module):
         x = x.view(x.size(0), -1)
         out = self.classifier(x)
         if self.proj:
-            feat = self.fc1(x)
-            feat = self.relu_mlp(feat)       
-            feat = self.fc2(feat)
-            feat = self.l2norm(feat) 
-            return out, feat
+            x = self.fc1(x)
+            x = self.relu_mlp(x)       
+            x = self.fc2(x)
+            x = self.l2norm(x) 
+            return out, x
         else:
             return out
 
